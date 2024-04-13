@@ -54,6 +54,12 @@ def main():
     window.title("Slideshow")
     window.configure(bg="black")
 
+    # get screen size to center images
+    screen_width = window.winfo_screenwidth()
+    screen_height = window.winfo_screenheight()
+    # set window size
+    window.geometry(f"{screen_width}x{screen_height}")
+
     # start Slideshow-App
     slideshow = SlideshowApp(window, images)
 

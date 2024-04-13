@@ -34,9 +34,20 @@ class SlideshowApp:
             # reset the index to restart
             self.index = 0
 
-        # load and display the image
+        # load image
         img_path = self.images[self.index]
-        photo = ImageTk.PhotoImage(Image.open(img_path))
+        img = Image.open(img_path)
+        # resize image, if to width
+        if img.width > self.window.winfo_screenwidth():
+            resize_factor = self.window.winfo_screenwidth() / img.width
+            img = img.resize((int(img.width * resize_factor), int(img.height * resize_factor)))
+        # resize image, if to height
+        if img.height > self.window.winfo_screenheight():
+            resize_factor = self.window.winfo_screenheight() / img.height
+            img = img.resize((int(img.width * resize_factor), int(img.height * resize_factor)))
+
+        # display image
+        photo = ImageTk.PhotoImage(img)
         self.image_label.configure(image=photo)
         self.image_label.image = photo
 

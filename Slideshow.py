@@ -70,6 +70,7 @@ def main():
     screen_height = window.winfo_screenheight()
     # set window size
     window.geometry(f"{screen_width}x{screen_height}")
+    window.attributes("-fullscreen", True)
 
     # start Slideshow-App
     slideshow = SlideshowApp(window, images)

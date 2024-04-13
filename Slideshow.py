@@ -28,6 +28,17 @@ class SlideshowApp:
         # start the slide show
         self.show_next_image()
 
+    def check_for_new_images(self):
+        # get all images inside the diretory
+        all_images = set(os.listdir(img_dir))
+        # get filenames of the knonw images
+        known_images = [os.path.basename(file) for file in self.images]
+        # check for new images
+        new_images = all_images.difference(known_images)
+        # if at least one new image exist...
+        if new_images:
+            self.images.insert(self.index, os.path.join(img_dir, next(iter(new_images))))
+
     def show_next_image(self):
         # check, if the end of the images has been reached
         if self.index == len(self.images):
@@ -36,7 +47,8 @@ class SlideshowApp:
             # reload images
             self.images = [os.path.join(img_dir, file) for file in os.listdir(img_dir)
                            if file.endswith(('.jpg', '.jpeg', '.png'))]
-
+        
+        self.check_for_new_images()
         # load image
         img_path = self.images[self.index]
         img = Image.open(img_path)

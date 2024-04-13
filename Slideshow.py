@@ -14,9 +14,16 @@ class SlideshowApp:
         self.images = images
         self.index = 0
 
-        # create a label to display the image
-        self.image_label = tk.Label(window)
-        self.image_label.pack()
+        # set background to black
+        self.window.configure(bg="black")
+
+        # frame for the image
+        self.img_frame = tk.Frame(window, bg="black")
+        self.img_frame.pack(expand=True)
+
+        # label for the image
+        self.image_label = tk.Label(self.img_frame, bg="black")
+        self.image_label.pack(expand=True)
 
         # start the slide show
         self.show_next_image()
@@ -29,9 +36,7 @@ class SlideshowApp:
 
         # load and display the image
         img_path = self.images[self.index]
-        image = Image.open(img_path)
-        image = image.resize((800, 600))  # adapt image size
-        photo = ImageTk.PhotoImage(image)
+        photo = ImageTk.PhotoImage(Image.open(img_path))
         self.image_label.configure(image=photo)
         self.image_label.image = photo
 
@@ -47,6 +52,7 @@ def main():
     # create Tkinter window
     window = tk.Tk()
     window.title("Slideshow")
+    window.configure(bg="black")
 
     # start Slideshow-App
     slideshow = SlideshowApp(window, images)

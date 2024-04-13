@@ -24,6 +24,8 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self.send_header('Content-type', 'text/css')
             elif self.path.endswith((".js", ".mjs")):
                 self.send_header('Content-type', 'text/javascript')
+            # disable cors
+            self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             # Sende den Inhalt der Datei als Response
             self.wfile.write(content)
@@ -61,6 +63,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         # Send a response
         self.send_response(200)
         self.send_header('Content-type', 'text/plain')
+        # disable cors
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         self.wfile.write('{"msg": "Success"}'.encode())
         

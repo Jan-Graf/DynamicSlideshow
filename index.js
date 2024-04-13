@@ -57,7 +57,7 @@ function submit() {
     const image = input.files[0];
 
     // API URL
-    const url = "http://localhost:8000";
+    const url = "http://" + window.location.hostname + ":8000";
 
     // create FormData and add image
     const formData = new FormData();
@@ -84,11 +84,11 @@ function submit() {
             container.style.pointerEvents = "none";
         }
         else {
-            console.log('Response:  ', data);
+            alert(data);
         }
     })
-    .catch(error => {
-        console.error('Error:', error);
+    .catch((error) => {
+        alert(error);
     });
 }
 

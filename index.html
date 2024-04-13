@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Slideshow</title>
+
+    <link rel="icon" href="Icon.ico" sizes="48x48">
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Willkommen</h2>
+        <h2>zum 50. Geburtstag</h2>
+        <h2>von Böbber / Strohmi / Michael</h2>
+
+        <p>Du möchtes einen Moment von der Feier mit allen teilen?</p>
+        <p>Dann nimm ein Schnappschuss auf oder lade einen hoch und werde ein Teil der Diashow!</p>
+
+        <div id="buttons-container">
+            <button class="image-upload-button" onclick="selectPhoto()">Bild auswählen</button>
+            <button class="image-upload-button" onclick="takePhoto()">Bild aufnehmen</button>
+        </div>
+
+        <input id="image-input" type="file" accept="image/*" capture="camera" onchange="showPreview()">
+        <div id="container-preview">
+            <p>Vorschau:</p>
+            <img id="preview" alt="Es wurde noch kein Foto ausgewählt" src="" />
+            <button id="submit-btn" onclick="submit()">Hochladen</button>
+        </div>
+    </div>
+</body>
+</html>

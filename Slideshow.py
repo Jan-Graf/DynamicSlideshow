@@ -33,6 +33,9 @@ class SlideshowApp:
         if self.index == len(self.images):
             # reset the index to restart
             self.index = 0
+            # reload images
+            self.images = [os.path.join(img_dir, file) for file in os.listdir(img_dir)
+                           if file.endswith(('.jpg', '.jpeg', '.png'))]
 
         # load image
         img_path = self.images[self.index]

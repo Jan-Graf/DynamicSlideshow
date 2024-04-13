@@ -1,12 +1,15 @@
 /**
  * Open a dialog to select an image from the device
  */
-function selectPhoto() {
-    // trigger the click event of the input to select a photo
+function selectImage() {
+    // trigger the click event of the input to select a Image
     document.getElementById("image-input").click();
 }
 
-function takePhoto() {
+/**
+ * Take a Image by the camera
+ */
+function takeImage() {
     var constraints = { video: true };
 
     navigator.mediaDevices.getUserMedia(constraints)
@@ -20,8 +23,8 @@ function takePhoto() {
                 canvas.height = video.videoHeight;
                 var context = canvas.getContext('2d');
                 context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                var photo = canvas.toDataURL('image/jpeg');
-                showPhotoPreview(photo);
+                var image = canvas.toDataURL('image/jpeg');
+                showPreview(image);
                 mediaStream.getTracks().forEach(track => track.stop());
             };
         })
@@ -30,6 +33,9 @@ function takePhoto() {
         });
 }
 
+/**
+ * Show a preview of the image
+ */
 function showPreview() {
     // get the input element and select the first image
     const input = document.getElementById("image-input");
@@ -42,6 +48,9 @@ function showPreview() {
     submitButton.style.visibility = "visible";
 }
 
+/**
+ * Submit image to API
+ */
 function submit() {
     // image to submit
     const input = document.getElementById("image-input");
@@ -66,9 +75,40 @@ function submit() {
         return response.json();
     })
     .then(data => {
-        console.log('Response:  ', data);
+        if(data.msg === "Success"){
+            // show message box with success text
+            const msgBox = document.getElementById("msg-box");
+            msgBox.style.visibility = "visible";
+            // disable pointer events
+            const container = document.getElementById("container");
+            container.style.pointerEvents = "none";
+        }
+        else {
+            console.log('Response:  ', data);
+        }
     })
     .catch(error => {
         console.error('Error:', error);
     });
+}
+
+/**
+ * Close the message box displaying feedback from the API
+ */
+function closeMessageBox() {
+    // hide message box with success text
+    const msgBox = document.getElementById("msg-box");
+    msgBox.style.visibility = "hidden";
+    // enable pointer events
+    const container = document.getElementById("container");
+    container.style.pointerEvents = "all";
+    // reset preview
+    const imgTag = document.getElementById("preview");
+    imgTag.src = "UploadIcon.png";
+    // reset input to prevent storing hundreds of images
+    const imgInput = document.getElementById("image-input");
+    imgInput.value = "";
+    // hide submit button
+    const submitButton = document.getElementById("submit-btn");
+    submitButton.style.visibility = "hidden";
 }

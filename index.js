@@ -1,36 +1,18 @@
 /**
  * Open a dialog to select an image from the device
+ * @param {boolean} openCamera True, if the capture tag should be added to the input field to open the camera 
  */
-function selectImage() {
+function selectImage(openCamera) {
+    const input = document.getElementById("image-input");
+    if (openCamera) {
+        input.setAttribute("capture", "camera");
+    }
+    else {
+        input.removeAttribute("cature");
+    }
+
     // trigger the click event of the input to select a Image
-    document.getElementById("image-input").click();
-}
-
-/**
- * Take a Image by the camera
- */
-function takeImage() {
-    var constraints = { video: true };
-
-    navigator.mediaDevices.getUserMedia(constraints)
-        .then(function(mediaStream) {
-            var video = document.createElement('video');
-            video.srcObject = mediaStream;
-            video.onloadedmetadata = function(e) {
-                video.play();
-                var canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                var context = canvas.getContext('2d');
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                var image = canvas.toDataURL('image/jpeg');
-                showPreview(image);
-                mediaStream.getTracks().forEach(track => track.stop());
-            };
-        })
-        .catch(function(err) {
-            console.error('Error accessing camera:', err);
-        });
+    input.click();
 }
 
 /**

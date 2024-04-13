@@ -18,16 +18,16 @@
         <p>Du möchtes einen Moment von der Feier mit allen teilen?</p>
         <p>Dann nimm ein Schnappschuss auf, lade ihn hoch und werde ein Teil der Diashow!</p>
 
-        <!-- <div id="buttons-container">
-            <button class="image-upload-button" onclick="selectImage()">Bild auswählen</button>
-            <button class="image-upload-button" onclick="takeImage()">Bild aufnehmen</button>
-        </div> -->
+        <div id="buttons-container">
+            <button class="image-upload-button" onclick="selectImage(false)">Bild auswählen</button>
+            <button class="image-upload-button" onclick="selectImage(true)">Bild aufnehmen</button>
+        </div>
 
-        <input id="image-input" type="file" accept="image/*" capture="camera" onchange="showPreview()">
+        <input id="image-input" type="file" accept="image/*" onchange="showPreview()">
         <div id="container-preview">
             <p>Vorschau:</p>
-            <div id="image-container" onclick="selectImage()">
-                <img id="preview" alt="Es wurde noch kein Foto ausgewählt" src="UploadIcon.png" onclick="selectImage()" />
+            <div id="image-container" onclick="selectImage(false)">
+                <img id="preview" alt="Es wurde noch kein Foto ausgewählt" src="UploadIcon.png" onclick="selectImage(false)" />
             </div>
             <button id="submit-btn" onclick="submit()">Hochladen</button>
         </div>

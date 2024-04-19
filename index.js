@@ -34,6 +34,9 @@ function showPreview() {
  * Submit image to API
  */
 function submit() {
+    const submitButton = document.getElementById("submit-btn");
+    submitButton.innerHTML = "Wird hochgeladen..."
+    submitButton.disabled = true;
     // image to submit
     const input = document.getElementById("image-input");
     const image = input.files[0];
@@ -93,4 +96,6 @@ function closeMessageBox() {
     // hide submit button
     const submitButton = document.getElementById("submit-btn");
     submitButton.style.visibility = "hidden";
+    submitButton.innerHTML = "Hochladen";
+    submitButton.disabled = false;
 }

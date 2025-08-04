@@ -1,7 +1,7 @@
 import configparser
 import os
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageOps
 
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -56,6 +56,7 @@ class SlideshowApp:
         # load image
         img_path = self.images[self.index]
         img = Image.open(img_path)
+        img = ImageOps.exif_transpose(img)
         # resize image, if to width
         if img.width > self.window.winfo_screenwidth():
             resize_factor = self.window.winfo_screenwidth() / img.width

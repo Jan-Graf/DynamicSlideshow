@@ -1,12 +1,16 @@
+import configparser
 import os
 import tkinter as tk
 from PIL import Image, ImageTk
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+
 # path to the images
-img_dir = "C:\\Users\\Jan\\Documents\\Python Scripts\\DynamicSlideshow\\Images"
+img_dir = config["Slideshow"]["img_dir"]
 
 #timeout to switch to the next image (in ms)
-timeout = 5000
+timeout = config["Slideshow"]["timeout"]
 
 class SlideshowApp:
     def __init__(self, window, images):

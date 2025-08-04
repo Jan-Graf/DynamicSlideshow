@@ -1,11 +1,15 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from datetime import datetime
+import configparser
 import os
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+
 # directory to store the frontend
-static_dir = "C:\\Users\\Jan\\Documents\\Python Scripts\\DynamicSlideshow"
+static_dir = config["Slideshow"]["website_dir"]
 # directory to store the images
-upload_dir = "C:\\Users\\Jan\\Documents\\Python Scripts\\DynamicSlideshow\\Images"
+upload_dir = config["Slideshow"]["img_dir"]
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -75,4 +79,5 @@ def run_server(port=8000):
     httpd.serve_forever()
 
 if __name__ == "__main__":
-    run_server()
+    port = int(config["Slideshow"]["port"])
+    run_server(port)

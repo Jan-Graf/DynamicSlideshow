@@ -1,12 +1,16 @@
+import configparser
 import os
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageOps
+
+config = configparser.ConfigParser()
+config.read("config.ini")
 
 # path to the images
-img_dir = "C:\\Users\\Jan\\Documents\\Python Scripts\\DynamicSlideshow\\Images"
+img_dir = config["Slideshow"]["img_dir"]
 
 #timeout to switch to the next image (in ms)
-timeout = 5000
+timeout = config["Slideshow"]["timeout"]
 
 class SlideshowApp:
     def __init__(self, window, images):
@@ -52,6 +56,7 @@ class SlideshowApp:
         # load image
         img_path = self.images[self.index]
         img = Image.open(img_path)
+        img = ImageOps.exif_transpose(img)
         # resize image, if to width
         if img.width > self.window.winfo_screenwidth():
             resize_factor = self.window.winfo_screenwidth() / img.width
@@ -79,6 +84,9 @@ def main():
     window = tk.Tk()
     window.title("Slideshow")
     window.configure(bg="black")
+
+    # close if ESC is pressed
+    window.bind("<Escape>", lambda e: window.destroy())  # ESC
 
     # get screen size to center images
     screen_width = window.winfo_screenwidth()

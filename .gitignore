@@ -161,3 +161,6 @@ cython_debug/
 
 # Exclude the folder containig the images
 /Images
+
+# Exclude the ini file
+config.ini

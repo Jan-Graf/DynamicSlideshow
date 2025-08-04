@@ -84,6 +84,9 @@ def main():
     window.title("Slideshow")
     window.configure(bg="black")
 
+    # close if ESC is pressed
+    window.bind("<Escape>", lambda e: window.destroy())  # ESC
+
     # get screen size to center images
     screen_width = window.winfo_screenwidth()
     screen_height = window.winfo_screenheight()
